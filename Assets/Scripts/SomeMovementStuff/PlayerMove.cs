@@ -6,20 +6,43 @@ public class PlayerMove : MonoBehaviour
     public Rigidbody2D rb;
 
     private Vector2 movement;
+    [SerializeField] Sprite[] ChangeFacing;
+    [SerializeField] Sprite CurrentSprite;
 
 
     public float offset;
 
     void Update()
     {
+        gameObject.GetComponent<SpriteRenderer>().sprite = CurrentSprite;
+        
 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown("a"))
+        {
+            CurrentSprite = ChangeFacing[0];
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (Input.GetKeyDown("d"))
+        {
+                transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (Input.GetKeyDown("s"))
+        {
+            CurrentSprite = ChangeFacing[2];
+
+        }
+        else if (Input.GetKeyDown("w"))
+        {
+            CurrentSprite = ChangeFacing[1];
+
+        }
+
 
         movement = movement.normalized;
 
-        Rotate();
 
     }
 

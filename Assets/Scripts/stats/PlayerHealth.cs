@@ -5,18 +5,16 @@ public class PlayerStats : MonoBehaviour
     public int MaxHealth;
     public int Health;
     public int PlayerDamage;
+    public bool IsHolding;
     public StatBoost Statboost;
 
     void Start()
     {
         Health = MaxHealth;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    void Update()
     {
-        if ( collision.gameObject.tag == "PlusAttack")
-        {
-            PlayerDamage += Statboost.AttackBoost;
-        }
     }
 
 public void TakeDamage(int damage)
@@ -27,5 +25,13 @@ public void TakeDamage(int damage)
         Destroy(gameObject);
     }
 }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+    if (Input.GetKeyDown("e") && IsHolding == false && collision.gameObject.tag == "PlusAttack")
+        {
+            PlayerDamage += Statboost.AttackBoost;
+            IsHolding = true;
+        }
+    }
 
 }
